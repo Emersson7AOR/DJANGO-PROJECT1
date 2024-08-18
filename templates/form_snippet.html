@@ -1,0 +1,30 @@
+{% comment %} 
+Se el filtro con el nombre add_attr
+{% endcomment %}
+{% load add_attr %} 
+
+{% comment %} 
+Se iteran los campos del arreglo form, form se trae desde views.
+{% endcomment %}
+{% for field in form %}
+<div class="mb-3">
+    {% comment %} Muestra la etiqueta del objeto {% endcomment %}
+    {{ field.label_tag }}
+    {% comment %}
+     En dado caso de que tenag error, muestra el campo con la clase de error 
+    {% endcomment %}
+    {% if field.errors %}
+        {{ field|add_attr:"class:is-invalid" }}
+    {% comment %} 
+    Si no tiene error, muestra el campo sin la clase de error
+    {% endcomment %}
+    {% else %}
+        {{ field }}
+    {% endif %}
+    <div class="invalid-feedback">
+    {% for error in field.errors %}
+        {{error}}
+    {% endfor %}
+    </div>
+</div>
+{% endfor %}
